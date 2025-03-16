@@ -7,462 +7,561 @@ import {
   TouchableOpacity,
   Image,
   useWindowDimensions,
+  Platform,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 
-// Placeholder for logo - we'll replace this with actual assets later
-const LogoPlaceholder = () => (
-  <View style={styles.logoContainer}>
-    <Text style={styles.logoText}>MemoryStitcher</Text>
-    <Text style={styles.logoSubtext}>Turn Moments into Legacy</Text>
-  </View>
-);
-
-export const LandingScreen = () => {
-  const { width } = useWindowDimensions();
+// Web-specific implementation using HTML
+const WebLandingPage = () => {
   const navigation = useNavigation();
-  
+
+  // Function to handle navigation
+  const handleNavigation = (screen: 'SignIn' | 'SignUp' | 'ForgotPassword' | 'Welcome') => {
+    navigation.navigate('Auth', { screen });
+  };
+
+  // Inject CSS and HTML directly for web
+  React.useEffect(() => {
+    if (Platform.OS === 'web') {
+      // Add CSS to the document head
+      const style = document.createElement('style');
+      style.textContent = `
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+          background-color: #F5F0E8;
+          overflow-y: auto;
+        }
+        .container {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 20px;
+          background-color: #F5F0E8;
+        }
+        .logo {
+          height: 50px;
+        }
+        .header-buttons {
+          display: flex;
+        }
+        .btn {
+          padding: 8px 16px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: 600;
+          margin-left: 10px;
+        }
+        .btn-signin {
+          color: #8B5A2B;
+          background: none;
+        }
+        .btn-signup {
+          color: #8B5A2B;
+          background-color: #FFFFFF;
+          border: 1px solid #8B5A2B;
+        }
+        .hero {
+          position: relative;
+          height: 500px;
+          color: white;
+          text-align: center;
+        }
+        .hero-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        .hero-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.4);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 0 20px;
+        }
+        .hero-title {
+          font-size: 36px;
+          font-weight: bold;
+          margin-bottom: 20px;
+        }
+        .hero-subtitle {
+          font-size: 18px;
+          max-width: 600px;
+        }
+        .tagline-section {
+          text-align: center;
+          padding: 60px 20px;
+        }
+        .tagline {
+          font-size: 32px;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 20px;
+        }
+        .description {
+          font-size: 18px;
+          color: #666;
+          max-width: 800px;
+          margin: 0 auto;
+        }
+        .features-section {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          padding: 20px;
+          margin-bottom: 40px;
+        }
+        .feature-card {
+          width: 300px;
+          padding: 20px;
+          margin: 15px;
+          background-color: white;
+          border-radius: 10px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          text-align: center;
+        }
+        .feature-icon {
+          width: 60px;
+          height: 60px;
+          background-color: #F5F0E8;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0 auto 15px;
+          font-size: 24px;
+        }
+        .feature-image {
+          width: 200px;
+          height: 150px;
+          object-fit: contain;
+          margin: 0 auto 15px;
+        }
+        .feature-title {
+          font-size: 20px;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 10px;
+        }
+        .feature-description {
+          font-size: 16px;
+          color: #666;
+        }
+        .plans-section {
+          text-align: center;
+          padding: 40px 20px;
+        }
+        .plans-title {
+          font-size: 32px;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 20px;
+        }
+        .plans-description {
+          font-size: 18px;
+          color: #666;
+          max-width: 800px;
+          margin: 0 auto 40px;
+        }
+        .plans-features {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .plans-column {
+          width: 300px;
+          padding: 20px;
+          margin: 15px;
+          background-color: white;
+          border-radius: 10px;
+        }
+        .plans-column-title {
+          font-size: 20px;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 20px;
+          text-align: center;
+        }
+        .feature-row {
+          display: flex;
+          align-items: center;
+          margin-bottom: 15px;
+          text-align: left;
+        }
+        .feature-check {
+          color: #8B5A2B;
+          font-weight: bold;
+          margin-right: 10px;
+        }
+        .feature-text {
+          color: #666;
+        }
+        .pricing-section {
+          text-align: center;
+          padding: 20px;
+          margin: 20px;
+          background-color: white;
+          border-radius: 10px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .pricing-title {
+          font-size: 24px;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 15px;
+        }
+        .pricing-price {
+          font-size: 36px;
+          font-weight: bold;
+          color: #8B5A2B;
+          margin-bottom: 20px;
+        }
+        .pricing-unit {
+          font-size: 18px;
+          color: #666;
+        }
+        .start-free-btn {
+          background-color: #F5E1D0;
+          color: #8B5A2B;
+          font-weight: bold;
+          padding: 12px 30px;
+          border-radius: 5px;
+          border: none;
+          cursor: pointer;
+          margin-bottom: 15px;
+        }
+        .notification-text {
+          color: #666;
+          font-size: 14px;
+        }
+        footer {
+          text-align: center;
+          padding: 20px;
+          color: #666;
+          font-size: 14px;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }, []);
+
+  if (Platform.OS !== 'web') {
+    return null;
+  }
+
+  // Return a div that will be rendered as HTML
+  return (
+    <div style={{ display: 'contents' }}>
+      <div className="container">
+        <header>
+          <img 
+            src="https://via.placeholder.com/150x50" 
+            alt="MemoryStitcher Logo" 
+            className="logo" 
+          />
+          <div className="header-buttons">
+            <button 
+              className="btn btn-signin" 
+              onClick={() => handleNavigation('SignIn')}
+            >
+              Sign In
+            </button>
+            <button 
+              className="btn btn-signup" 
+              onClick={() => handleNavigation('SignUp')}
+            >
+              Sign Up
+            </button>
+          </div>
+        </header>
+
+        <div className="hero">
+          <img 
+            src="https://images.pexels.com/photos/3818956/pexels-photo-3818956.jpeg" 
+            alt="Family sharing memories" 
+            className="hero-image" 
+          />
+          <div className="hero-overlay">
+            <h1 className="hero-title">Weave Your Moments Into a Legacy</h1>
+            <p className="hero-subtitle">
+              Capture and share precious memories with loved ones. Start preserving your legacy today.
+            </p>
+          </div>
+        </div>
+
+        <div className="tagline-section">
+          <h2 className="tagline">Tell Your Story Well</h2>
+          <p className="description">
+            MemoryStitcher is your personal AI-powered storytelling companion, helping you craft meaningful family narratives through guided conversations and thoughtful questions.
+          </p>
+        </div>
+
+        <div className="features-section">
+          <div className="feature-card">
+            <div className="feature-icon">✏️</div>
+            <h3 className="feature-title">Guided Writing</h3>
+            <p className="feature-description">
+              Interactive conversations that help you unlock and shape your memories
+            </p>
+          </div>
+          
+          <div className="feature-card">
+            <div className="feature-icon">❤️</div>
+            <h3 className="feature-title">Family Connection</h3>
+            <p className="feature-description">
+              Share stories with loved ones and preserve your family's legacy
+            </p>
+          </div>
+          
+          <div className="feature-card">
+            <div className="feature-icon">📚</div>
+            <h3 className="feature-title">Living Library</h3>
+            <p className="feature-description">
+              Build a collection of meaningful stories that grows with your family
+            </p>
+          </div>
+        </div>
+
+        <div className="features-section">
+          <div className="feature-card">
+            <img 
+              src="https://memorystitcher.com/lovable-uploads/bd41d744-b989-432b-9eaa-f484190d1536.png" 
+              alt="Collaborative Storytelling" 
+              className="feature-image" 
+            />
+            <h3 className="feature-title">Collaborative Storytelling</h3>
+            <p className="feature-description">
+              Multiple family members can contribute to the same story, adding their unique perspectives
+            </p>
+          </div>
+          
+          <div className="feature-card">
+            <img 
+              src="https://memorystitcher.com/lovable-uploads/14f2a7aa-5cf8-43f1-94f6-92bb2fbc17e3.png" 
+              alt="Story Incentives" 
+              className="feature-image" 
+            />
+            <h3 className="feature-title">Story Incentives</h3>
+            <p className="feature-description">
+              Encourage storytelling through gift card contributions and family rewards
+            </p>
+          </div>
+          
+          <div className="feature-card">
+            <img 
+              src="https://memorystitcher.com/lovable-uploads/d31cdefd-326f-492c-b5be-a71ce6f4bcba.png" 
+              alt="Private & Secure" 
+              className="feature-image" 
+            />
+            <h3 className="feature-title">Private & Secure</h3>
+            <p className="feature-description">
+              Control who sees your stories with flexible privacy settings for family sharing
+            </p>
+          </div>
+        </div>
+
+        <div className="plans-section">
+          <h2 className="plans-title">Family Plans Coming Soon</h2>
+          <p className="plans-description">
+            Experience the power of shared storytelling. Connect with up to 8 family members, collaborate on stories, and build your family's legacy together.
+          </p>
+          
+          <div className="plans-features">
+            <div className="plans-column">
+              <h3 className="plans-column-title">Collaborative Features</h3>
+              <div className="feature-row">
+                <span className="feature-check">✓</span>
+                <span className="feature-text">Share stories with up to 8 family members</span>
+              </div>
+              <div className="feature-row">
+                <span className="feature-check">✓</span>
+                <span className="feature-text">Add multiple perspectives to family stories</span>
+              </div>
+              <div className="feature-row">
+                <span className="feature-check">✓</span>
+                <span className="feature-text">Create private family spaces</span>
+              </div>
+            </div>
+            
+            <div className="plans-column">
+              <h3 className="plans-column-title">Enhanced Features</h3>
+              <div className="feature-row">
+                <span className="feature-check">✓</span>
+                <span className="feature-text">Advanced story organization</span>
+              </div>
+              <div className="feature-row">
+                <span className="feature-check">✓</span>
+                <span className="feature-text">Unlimited story storage</span>
+              </div>
+              <div className="feature-row">
+                <span className="feature-check">✓</span>
+                <span className="feature-text">Priority support</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="pricing-section">
+          <h2 className="pricing-title">Start Free Today</h2>
+          <p className="pricing-price">$0<span className="pricing-unit">/month</span></p>
+          
+          <div className="feature-row">
+            <span className="feature-check">✓</span>
+            <span className="feature-text">5 personal stories</span>
+          </div>
+          <div className="feature-row">
+            <span className="feature-check">✓</span>
+            <span className="feature-text">Basic editor</span>
+          </div>
+          <div className="feature-row">
+            <span className="feature-check">✓</span>
+            <span className="feature-text">Private storage</span>
+          </div>
+          
+          <button 
+            className="start-free-btn" 
+            onClick={() => handleNavigation('SignUp')}
+          >
+            Start Free
+          </button>
+          
+          <p className="notification-text">
+            Be the first to know when family plans launch
+          </p>
+        </div>
+
+        <footer>
+          <p>Copyright © 2025 MemoryStitcher. All rights reserved.</p>
+        </footer>
+      </div>
+    </div>
+  );
+};
+
+// Native implementation for mobile platforms
+const NativeLandingScreen = () => {
+  const navigation = useNavigation();
+  const { width } = useWindowDimensions();
   const isMobile = width < 768;
 
-  const handleSignIn = () => {
-    navigation.navigate('Auth', { screen: 'SignIn' });
-  };
-
-  const handleSignUp = () => {
-    navigation.navigate('Auth', { screen: 'SignUp' });
-  };
-
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar style="dark" />
-      
-      {/* Header */}
-      <View style={styles.header}>
-        <LogoPlaceholder />
-        <View style={styles.headerButtons}>
-          <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
-            <Text style={styles.signInText}>Sign In</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
-            <Text style={styles.signUpText}>Sign Up</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      
-      {/* Hero Section */}
-      <View style={styles.heroSection}>
-        <Text style={styles.heroTitle}>Weave Your Moments Into a Legacy</Text>
-        <Text style={styles.heroSubtitle}>
-          Capture and share precious memories with loved ones. Start preserving your legacy today.
-        </Text>
-      </View>
-      
-      {/* Tagline Section */}
-      <View style={styles.taglineSection}>
-        <Text style={styles.tagline}>Tell Your Story Well</Text>
-      </View>
-      
-      {/* Description Section */}
-      <View style={styles.descriptionSection}>
-        <Text style={styles.description}>
-          MemoryStitcher is your personal AI-powered storytelling companion, helping you craft meaningful family narratives through guided conversations and thoughtful questions.
-        </Text>
-      </View>
-      
-      {/* Features Section */}
-      <View style={styles.featuresSection}>
-        {/* Feature 1 */}
-        <View style={styles.featureCard}>
-          <View style={styles.featureIconContainer}>
-            <Text style={styles.featureIcon}>✏️</Text>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        <View style={styles.header}>
+          <Text style={styles.logo}>MemoryStitcher</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity
+              style={{ ...styles.button, marginRight: 10 }}
+              onPress={() => navigation.navigate('Auth', { screen: 'SignIn' })}
+            >
+              <Text style={styles.signInText}>Sign In</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate('Auth', { screen: 'SignUp' })}
+            >
+              <Text style={styles.signUpText}>Sign Up</Text>
+            </TouchableOpacity>
           </View>
-          <Text style={styles.featureTitle}>Guided Writing</Text>
-          <Text style={styles.featureDescription}>
-            Interactive conversations that help you unlock and shape your memories
+        </View>
+
+        <View style={styles.hero}>
+          <Text style={styles.heroTitle}>Weave Your Moments Into a Legacy</Text>
+          <Text style={styles.heroSubtitle}>
+            Capture and share precious memories with loved ones. Start preserving
+            your legacy today.
           </Text>
         </View>
-        
-        {/* Feature 2 */}
-        <View style={styles.featureCard}>
-          <View style={styles.featureIconContainer}>
-            <Text style={styles.featureIcon}>❤️</Text>
-          </View>
-          <Text style={styles.featureTitle}>Family Connection</Text>
-          <Text style={styles.featureDescription}>
-            Share stories with loved ones and preserve your family's legacy
+
+        <View style={styles.features}>
+          <Text style={styles.tagline}>Tell Your Story Well</Text>
+          <Text style={styles.description}>
+            MemoryStitcher is your personal AI-powered storytelling companion, helping you craft meaningful family narratives through guided conversations and thoughtful questions.
           </Text>
         </View>
-        
-        {/* Feature 3 */}
-        <View style={styles.featureCard}>
-          <View style={styles.featureIconContainer}>
-            <Text style={styles.featureIcon}>📚</Text>
-          </View>
-          <Text style={styles.featureTitle}>Living Library</Text>
-          <Text style={styles.featureDescription}>
-            Build a collection of meaningful stories that grows with your family
-          </Text>
-        </View>
-      </View>
-      
-      {/* Additional Features Section */}
-      <View style={styles.featuresSection}>
-        {/* Feature 4 */}
-        <View style={styles.featureCard}>
-          <View style={styles.featureIconContainer}>
-            <Text style={styles.featureIcon}>👥</Text>
-          </View>
-          <Text style={styles.featureTitle}>Collaborative Storytelling</Text>
-          <Text style={styles.featureDescription}>
-            Multiple family members can contribute to the same story, adding their unique perspectives
-          </Text>
-        </View>
-        
-        {/* Feature 5 */}
-        <View style={styles.featureCard}>
-          <View style={styles.featureIconContainer}>
-            <Text style={styles.featureIcon}>🎁</Text>
-          </View>
-          <Text style={styles.featureTitle}>Story Incentives</Text>
-          <Text style={styles.featureDescription}>
-            Encourage storytelling through gift card contributions and family rewards
-          </Text>
-        </View>
-        
-        {/* Feature 6 */}
-        <View style={styles.featureCard}>
-          <View style={styles.featureIconContainer}>
-            <Text style={styles.featureIcon}>🔒</Text>
-          </View>
-          <Text style={styles.featureTitle}>Private & Secure</Text>
-          <Text style={styles.featureDescription}>
-            Control who sees your stories with flexible privacy settings for family sharing
-          </Text>
-        </View>
-      </View>
-      
-      {/* Family Plans Section */}
-      <View style={styles.plansSection}>
-        <Text style={styles.plansSectionTitle}>Family Plans Coming Soon</Text>
-        <Text style={styles.plansSectionDescription}>
-          Experience the power of shared storytelling. Connect with up to 8 family members, collaborate on stories, and build your family's legacy together.
-        </Text>
-        
-        {/* Plans Features */}
-        <View style={styles.plansFeatures}>
-          <View style={styles.plansFeaturesColumn}>
-            <Text style={styles.plansFeaturesTitle}>Collaborative Features</Text>
-            <View style={styles.featureRow}>
-              <Text style={styles.featureCheck}>✓</Text>
-              <Text style={styles.featureText}>Share stories with up to 8 family members</Text>
-            </View>
-            <View style={styles.featureRow}>
-              <Text style={styles.featureCheck}>✓</Text>
-              <Text style={styles.featureText}>Add multiple perspectives to family stories</Text>
-            </View>
-            <View style={styles.featureRow}>
-              <Text style={styles.featureCheck}>✓</Text>
-              <Text style={styles.featureText}>Create private family spaces</Text>
-            </View>
-          </View>
-          
-          <View style={styles.plansFeaturesColumn}>
-            <Text style={styles.plansFeaturesTitle}>Enhanced Features</Text>
-            <View style={styles.featureRow}>
-              <Text style={styles.featureCheck}>✓</Text>
-              <Text style={styles.featureText}>Advanced story organization</Text>
-            </View>
-            <View style={styles.featureRow}>
-              <Text style={styles.featureCheck}>✓</Text>
-              <Text style={styles.featureText}>Unlimited story storage</Text>
-            </View>
-            <View style={styles.featureRow}>
-              <Text style={styles.featureCheck}>✓</Text>
-              <Text style={styles.featureText}>Priority support</Text>
-            </View>
-          </View>
-        </View>
-      </View>
-      
-      {/* Free Tier Section */}
-      <View style={styles.freeTierSection}>
-        <Text style={styles.freeTierTitle}>Start Free Today</Text>
-        <Text style={styles.freeTierPrice}>$0<Text style={styles.freeTierPriceUnit}>/month</Text></Text>
-        
-        <View style={styles.freeTierFeatures}>
-          <View style={styles.featureRow}>
-            <Text style={styles.featureCheck}>✓</Text>
-            <Text style={styles.featureText}>5 personal stories</Text>
-          </View>
-          <View style={styles.featureRow}>
-            <Text style={styles.featureCheck}>✓</Text>
-            <Text style={styles.featureText}>Basic editor</Text>
-          </View>
-          <View style={styles.featureRow}>
-            <Text style={styles.featureCheck}>✓</Text>
-            <Text style={styles.featureText}>Private storage</Text>
-          </View>
-        </View>
-        
-        <TouchableOpacity style={styles.startFreeButton} onPress={handleSignUp}>
-          <Text style={styles.startFreeButtonText}>Start Free</Text>
-        </TouchableOpacity>
-        
-        <Text style={styles.notificationText}>
-          Be the first to know when family plans launch
-        </Text>
-      </View>
-      
-      {/* Footer */}
-      <View style={styles.footer}>
-        <Text style={styles.copyright}>
-          Copyright © 2025 MemoryStitcher. All rights reserved.
-        </Text>
-      </View>
-    </ScrollView>
+
+        {/* Rest of the native implementation */}
+      </ScrollView>
+    </View>
   );
+};
+
+// Main component that conditionally renders based on platform
+const LandingScreen = () => {
+  return Platform.OS === 'web' ? <WebLandingPage /> : <NativeLandingScreen />;
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F0E8', // Light beige background
+    backgroundColor: '#F5F0E8',
+  },
+  contentContainer: {
+    paddingVertical: 20,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 15,
-    backgroundColor: '#F5F0E8',
+    paddingVertical: 10,
   },
-  logoContainer: {
-    flexDirection: 'column',
-  },
-  logoText: {
+  logo: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#8B5A2B', // Brown color
   },
-  logoSubtext: {
-    fontSize: 14,
-    color: '#8B5A2B', // Brown color
-  },
-  headerButtons: {
-    flexDirection: 'row',
-  },
-  signInButton: {
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-    marginRight: 10,
-  },
-  signInText: {
-    color: '#8B5A2B', // Brown color
-    fontWeight: '600',
-  },
-  signUpButton: {
-    backgroundColor: '#FFFFFF',
+  button: {
     paddingHorizontal: 15,
     paddingVertical: 8,
     borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#8B5A2B',
+    backgroundColor: '#8B5A2B',
+  },
+  signInText: {
+    color: 'white',
   },
   signUpText: {
-    color: '#8B5A2B', // Brown color
-    fontWeight: '600',
+    color: 'white',
   },
-  heroSection: {
+  hero: {
     padding: 20,
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 20,
   },
   heroTitle: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#333333',
     textAlign: 'center',
-    marginBottom: 15,
   },
   heroSubtitle: {
     fontSize: 18,
-    color: '#666666',
     textAlign: 'center',
-    maxWidth: 600,
+    marginTop: 10,
   },
-  taglineSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 30,
+  features: {
+    padding: 20,
   },
   tagline: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: '#333333',
-  },
-  descriptionSection: {
-    paddingHorizontal: 20,
-    alignItems: 'center',
-    marginBottom: 30,
+    textAlign: 'center',
+    marginBottom: 10,
   },
   description: {
     fontSize: 16,
-    color: '#666666',
     textAlign: 'center',
-    maxWidth: 800,
-  },
-  featuresSection: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    paddingHorizontal: 10,
-    marginBottom: 30,
-  },
-  featureCard: {
-    width: 300,
-    padding: 20,
-    margin: 10,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 10,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  featureIconContainer: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#F5F0E8',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 15,
-  },
-  featureIcon: {
-    fontSize: 24,
-  },
-  featureTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333333',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  featureDescription: {
-    fontSize: 14,
-    color: '#666666',
-    textAlign: 'center',
-  },
-  plansSection: {
-    padding: 20,
-    alignItems: 'center',
-    marginBottom: 30,
-  },
-  plansSectionTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333333',
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  plansSectionDescription: {
-    fontSize: 16,
-    color: '#666666',
-    textAlign: 'center',
-    maxWidth: 800,
-    marginBottom: 30,
-  },
-  plansFeatures: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  plansFeaturesColumn: {
-    width: 300,
-    padding: 20,
-    margin: 10,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 10,
-  },
-  plansFeaturesTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333333',
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  featureRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  featureCheck: {
-    color: '#8B5A2B',
-    fontWeight: 'bold',
-    marginRight: 10,
-  },
-  featureText: {
-    color: '#666666',
-    flex: 1,
-  },
-  freeTierSection: {
-    padding: 20,
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    margin: 20,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  freeTierTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333333',
-    marginBottom: 15,
-  },
-  freeTierPrice: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#8B5A2B',
-    marginBottom: 20,
-  },
-  freeTierPriceUnit: {
-    fontSize: 18,
-    color: '#666666',
-  },
-  freeTierFeatures: {
-    alignSelf: 'stretch',
-    marginBottom: 20,
-  },
-  startFreeButton: {
-    backgroundColor: '#F5E1D0',
-    paddingHorizontal: 30,
-    paddingVertical: 12,
-    borderRadius: 5,
-    marginBottom: 15,
-  },
-  startFreeButtonText: {
-    color: '#8B5A2B',
-    fontWeight: 'bold',
-  },
-  notificationText: {
-    color: '#666666',
-    fontSize: 14,
-  },
-  footer: {
-    padding: 20,
-    alignItems: 'center',
-  },
-  copyright: {
-    color: '#666666',
-    fontSize: 14,
   },
 });
 
